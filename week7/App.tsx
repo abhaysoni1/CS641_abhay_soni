@@ -4,10 +4,10 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-
+const Tab = createBottomTabNavigator();
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -33,7 +33,7 @@ function Home({navigation}) {
       <View style={styles.container}>
         <Text>This is home screen</Text>
           <Button title={"Settings"} onPress={() => navigation.navigate('Settings')}/>
-          <Button title={"Hello"} onPress={() => navigation.navigate('Hello')}/>
+          <Button title={"TabNav"} onPress={() => navigation.navigate('TabNav')}/>
       </View>
   );
 }
@@ -47,11 +47,14 @@ function Settings({navigation}) {
     );
 }
 
-function Hello({navigation}) {
+function TabNav({navigation}) {
   return (
       <View style={styles.container}>
-          <Text>This is Hello screen</Text>
-          <Button title={"Hello"} onPress={() => navigation.navigate('Hello')}/>
+          <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Settings" component={Settings} />
+          </Tab.Navigator>
+          <Button title={"TabNav"} onPress={() => navigation.navigate('TabNav')}/>
       </View>
   );
 }
@@ -62,7 +65,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="Settings" component={Settings}/>
-          <Stack.Screen name="Hello" component={Hello}/>
+          <Stack.Screen name="TabNav" component={TabNav}/>
         </Stack.Navigator>
         {/* <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={HomeScreen} />
