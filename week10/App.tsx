@@ -1,5 +1,6 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState, useRef } from 'react';
+import * as Sharing from 'expo-sharing';
 import {
 Button,
 StyleSheet,
@@ -56,6 +57,12 @@ style={styles.button}
 onPress={() => setPhoto(null)}>
 <Text style={styles.text}>Take Another</Text>
 </TouchableOpacity>
+<TouchableOpacity
+  style={styles.button}
+  onPress={() => Sharing.shareAsync(photo)}
+>
+  <Text style={styles.text}>Share</Text>
+</TouchableOpacity>
 </View>
 </View>
 ) : (
@@ -69,6 +76,7 @@ onPress={toggleCameraFacing}>
 <TouchableOpacity style={styles.button} onPress={takePicture}>
 <Text style={styles.text}>Take Photo</Text>
 </TouchableOpacity>
+
 </View>
 </CameraView>
 )}
