@@ -1,74 +1,119 @@
-import { useState, useEffect } from 'react';
-import { Button, Text, SafeAreaView, ScrollView, StyleSheet, Image, View, Platform } from 'react-native';
-import * as MediaLibrary from 'expo-media-library';
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import { useState, useRef } from 'react';
+import {
+Button,
+StyleSheet,
+Text,
+TouchableOpacity,
+View,
+Image,
+} from 'react-native';
 
 export default function App() {
-  const [albums, setAlbums] = useState(null);
-  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+const [facing, setFacing] = useState<CameraType>('back');
+const [permission, requestPermission] = useCameraPermissions();
+const [photo, setPhoto] = useState<string | null>(null);
+const cameraRef = useRef<any>(null);
 
-  async function getAlbums() {
-    if (permissionResponse.status !== 'granted') {
-      await requestPermission();
-    }
-    const fetchedAlbums = await MediaLibrary.getAlbumsAsync({
-      includeSmartAlbums: true,
-    });
-    setAlbums(fetchedAlbums);
-  }
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Button onPress={getAlbums} title="Get albums" />
-      <ScrollView>
-        {albums && albums.map((album) => <AlbumEntry album={album} />)}
-      </ScrollView>
-    </SafeAreaView>
-  );
+if (!permission) {
+return <View />;
 }
 
-function AlbumEntry({ album }) {
-  const [assets, setAssets] = useState([]);
+if (!permission.granted) {
+return (
+<View style={styles.container}>
+<Text style={styles.message}>
+We need your permission to show the camera
+</Text>
+<Button onPress={requestPermission} title="grant permission" />
+</View>
+);
+}
 
-  useEffect(() => {
-    async function getAlbumAssets() {
-      const albumAssets = await MediaLibrary.getAssetsAsync({ album });
-      setAssets(albumAssets.assets);
-    }
-    getAlbumAssets();
-  }, [album]);
+function toggleCameraFacing() {
+setFacing((current) => (current === 'back' ? 'front' : 'back'));
+}
 
-  return (
-    <View key={album.id} style={styles.albumContainer}>
-      <Text>
-        {album.title} - {album.assetCount ?? 'no'} assets
-      </Text>
-      <View style={styles.albumAssetsContainer}>
-        {assets && assets.map((asset) => (
-          <Image source={{ uri: asset.uri }} width={50} height={50} />
-        ))}
-      </View>
-    </View>
-  );
+async function takePicture() {
+if (cameraRef.current) {
+try {
+const photo = await cameraRef.current.takePictureAsync();
+setPhoto(photo.uri);
+} catch (error) {
+console.error('Failed to take picture:', error);
+}
+}
+}
+
+return (
+<View style={styles.container}>
+{photo ? (
+<View style={styles.previewContainer}>
+<Image source={{ uri: photo }} style={styles.preview} />
+<View style={styles.buttonContainer}>
+<TouchableOpacity
+style={styles.button}
+onPress={() => setPhoto(null)}>
+<Text style={styles.text}>Take Another</Text>
+</TouchableOpacity>
+</View>
+</View>
+) : (
+<CameraView style={styles.camera} facing={facing} ref={cameraRef}>
+<View style={styles.buttonContainer}>
+<TouchableOpacity
+style={styles.button}
+onPress={toggleCameraFacing}>
+<Text style={styles.text}>Flip</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.button} onPress={takePicture}>
+<Text style={styles.text}>Take Photo</Text>
+</TouchableOpacity>
+</View>
+</CameraView>
+)}
+</View>
+);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    gap: 8,
-    justifyContent: 'center',
-    ...Platform.select({
-      android: {
-        paddingTop: 40,
-      },
-    }),
-  },
-  albumContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 12,
-    gap: 4,
-  },
-  albumAssetsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
+container: {
+flex: 1,
+justifyContent: 'center',
+},
+message: {
+textAlign: 'center',
+paddingBottom: 10,
+},
+camera: {
+flex: 1,
+},
+buttonContainer: {
+flex: 1,
+flexDirection: 'row',
+backgroundColor: 'transparent',
+margin: 64,
+},
+button: {
+flex: 1,
+alignSelf: 'flex-end',
+alignItems: 'center',
+backgroundColor: 'rgba(0,0,0,0.5)',
+padding: 10,
+margin: 5,
+borderRadius: 5,
+},
+text: {
+fontSize: 18,
+fontWeight: 'bold',
+color: 'white',
+},
+previewContainer: {
+flex: 1,
+backgroundColor: 'black',
+},
+preview: {
+flex: 1,
+resizeMode: 'contain',
+},
 });
