@@ -8,6 +8,7 @@ Text,
 TouchableOpacity,
 View,
 Image,
+Alert,
 } from 'react-native';
 
 export default function App() {
@@ -30,7 +31,22 @@ We need your permission to show the camera
 </View>
 );
 }
+async function sharePhoto(){
+  if(photo){
+    try{
+      const isSharingAvailable = await Sharing.isAvailableAsync();
+      if(isSharingAvailable){
+        Sharing.shareAsync(photo);
+      }
+      else{
+        Alert.alert('sharing not available');
+      }
+    }
+    catch(error){
 
+    }
+  }
+}
 function toggleCameraFacing() {
 setFacing((current) => (current === 'back' ? 'front' : 'back'));
 }
@@ -59,7 +75,7 @@ onPress={() => setPhoto(null)}>
 </TouchableOpacity>
 <TouchableOpacity
   style={styles.button}
-  onPress={() => Sharing.shareAsync(photo)}
+  onPress={sharePhoto}
 >
   <Text style={styles.text}>Share</Text>
 </TouchableOpacity>
