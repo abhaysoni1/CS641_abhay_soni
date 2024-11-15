@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -8,6 +8,7 @@ import { fetchExercisesByBodyParts } from '../api/exerciseDB';
 
 export default function Exercises() {
     const router= useRouter();
+    const [exercises, setExercises] = useState([]);
     const item = useLocalSearchParams();
     console.log('got item', item);
 
@@ -17,7 +18,8 @@ export default function Exercises() {
 
     const getExercises = async (bodyParts) =>{
     let data = await fetchExercisesByBodyParts(bodyParts);
-    console.log('got data:', data);
+    //console.log('got data:', data);
+    setExercises(data);
 }
 
   return (
