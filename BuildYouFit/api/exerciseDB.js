@@ -9,7 +9,7 @@ try{
     url,
     params,
     headers : {
-            'x-rapidapi-key': '06dd3d25dbmsh41aaedc6cbaf5c7p14b3bdjsnc534c618184c',
+            'x-rapidapi-key': 'da34b99c3fmshfc0eb6ed978b9cap12c62djsnb9a04d8336a8',
             'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
     }
 };

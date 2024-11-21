@@ -1,33 +1,53 @@
-import { View, Text } from 'react-native'
+import { View, Text ,Image, StatusBar} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { bodyParts } from '../constants';
+import { bodyParts, DemoExercises } from '../constants';
 import { fetchExercisesByBodyParts } from '../api/exerciseDB';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import ExerciseList from '../components/ExerciseList';
+import { ScrollView } from 'react-native-virtualized-view';
 export default function Exercises() {
     const router= useRouter();
-    const [exercises, setExercises] = useState([]);
+    const [exercises, setExercises] = useState(DemoExercises);
     const item = useLocalSearchParams();
-    console.log('got item', item);
-
+    //console.log('got item', item);
+    
     useEffect(()=>{
-        if(item) getExercises(item.name);
+        //if(item) getExercises(item.name);
     },[item]);
 
     const getExercises = async (bodyParts) =>{
+      try{
     let data = await fetchExercisesByBodyParts(bodyParts);
     //console.log('got data:', data);
     setExercises(data);
+      }catch(error){
+        console.error('Error fetching exerecise', error);
+      }
 }
 
   return (
-    <View className='mt-20'>
-      <Text>Exercise</Text>
-      <TouchableOpacity onPress={()=>router.back()}>
-        <Text>Back</Text>
-      </TouchableOpacity>
+    <ScrollView>
+      <StatusBar style="light"/>
+      <Image
+      source={item.image}
+      style={{width: wp(100), height: hp(45)}}
+      className="rounded-b-[40px]"
+      />
+      
+
+    <View className="mx-4 space-y-3 mt-4">
+      <Text style={{fontSize: hp(3)}} className="font-semibold text-neutral-700">
+        {item.name} exercises
+      </Text>
+      <View className="mb-10">
+        <ExerciseList data={exercises}/>
+      </View>
     </View>
+
+    </ScrollView>
+   
   )
 }
