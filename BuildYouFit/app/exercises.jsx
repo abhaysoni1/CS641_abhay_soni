@@ -10,12 +10,12 @@ import ExerciseList from '../components/ExerciseList';
 import { ScrollView } from 'react-native-virtualized-view';
 export default function Exercises() {
     const router= useRouter();
-    const [exercises, setExercises] = useState(DemoExercises);
+    const [exercises, setExercises] = useState();
     const item = useLocalSearchParams();
     //console.log('got item', item);
     
     useEffect(()=>{
-        //if(item) getExercises(item.name);
+        if(item) getExercises(item.name);
     },[item]);
 
     const getExercises = async (bodyParts) =>{
