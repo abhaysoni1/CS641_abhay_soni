@@ -18,13 +18,16 @@
     "axios": "^1.7.7",
     "expo": "^52.0.9",
     "expo-font": "~13.0.1",
+    "expo-image": "~2.0.1",
     "expo-linear-gradient": "~14.0.1",
     "expo-linking": "~7.0.3",
     "expo-router": "~4.0.7",
+    "expo-sensors": "~14.0.1",
     "expo-splash-screen": "~0.29.12",
     "expo-status-bar": "~2.0.0",
     "expo-system-ui": "~4.0.3",
     "expo-web-browser": "~14.0.1",
+    "lottie-react-native": "^7.1.0",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -39,8 +42,7 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-virtualized-view": "^1.0.0",
     "react-native-web": "~0.19.10",
-    "expo-image": "~2.0.1",
-    "expo-sensors": "~14.0.1"
+    "expo-constants": "~17.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
