@@ -1,16 +1,51 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import { Accelerometer } from 'expo-sensors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native';
+import Anticons from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import { useRouter } from 'expo-router';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default function Steps() {
+  const router = useRouter();
   const [steps, setSteps] = useState(0);
   const [isCounting, setIsCounting] = useState(false);
   const [lastMagnitude, setLastMagnitude] = useState(0);
   const [lastTimeStamp, setLastTimestamp] = useState(0);
   const animationRefRunning = useRef(null);
   const animationRefSitting = useRef(null);
+
+  // Load steps from AsyncStorage when the component mounts
+  useEffect(() => {
+    const loadSteps = async () => {
+      try {
+        const storedSteps = await AsyncStorage.getItem('stepCount');
+        if (storedSteps) {
+          setSteps(parseInt(storedSteps, 10));
+        }
+      } catch (error) {
+        console.error('Error loading steps:', error);
+      }
+    };
+
+    loadSteps();
+  }, []);
+
+  // Save steps to AsyncStorage whenever they change
+  useEffect(() => {
+    const saveSteps = async () => {
+      try {
+        await AsyncStorage.setItem('stepCount', steps.toString());
+      } catch (error) {
+        console.error('Error saving steps:', error);
+      }
+    };
+
+    saveSteps();
+  }, [steps]);
+
   useEffect(() => {
     let subscription;
     Accelerometer.isAvailableAsync().then((result) => {
@@ -18,14 +53,13 @@ export default function Steps() {
         subscription = Accelerometer.addListener((data) => {
           const { x, y, z } = data;
           const magnitude = Math.sqrt(x * x + y * y + z * z);
-          const threshold = 1.2; // Increased threshold for more reliable step detection
+          const threshold = 1.2;
           const timestamp = new Date().getTime();
-        
-          // Step detection logic
+
           if (
             Math.abs(magnitude - lastMagnitude) > threshold &&
             !isCounting &&
-            timestamp - lastTimeStamp > 1200 // Cooldown period increased to 1200ms
+            timestamp - lastTimeStamp > 1200
           ) {
             setIsCounting(true);
             setLastMagnitude(magnitude);
@@ -34,7 +68,7 @@ export default function Steps() {
 
             setTimeout(() => {
               setIsCounting(false);
-            }, 1500); // Prevent consecutive detections
+            }, 1500);
           }
         });
       } else {
@@ -43,19 +77,31 @@ export default function Steps() {
     });
 
     return () => {
-      // Cleanup subscription
       if (subscription) subscription.remove();
     };
   }, [isCounting, lastMagnitude, lastTimeStamp]);
 
-  const resetSteps = () => {
+  const resetSteps = async () => {
     setSteps(0);
+    try {
+      await AsyncStorage.setItem('stepCount', '0');
+    } catch (error) {
+      console.error('Error resetting steps:', error);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.title}>Step Tracker</Text>
+        <Text style={styles.title}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="mx-3 absolute rounded-full mt-1 right-2"
+          >
+            <Anticons name="closecircle" size={hp(4.5)} color="#f43f5e" />
+          </TouchableOpacity>
+          Step Tracker
+        </Text>
         <View style={styles.infoContainer}>
           <View style={styles.stepsContainer}>
             <Text style={styles.stepsText}>{steps}</Text>
@@ -66,26 +112,27 @@ export default function Steps() {
           </Text>
         </View>
         <View style={styles.animationContainer}>
-        {isCounting?(
+          {isCounting ? (
             <LottieView
-                autoPlay
-                ref={animationRefRunning}
-                style={styles.animation}
-                source={require('../assets/images/walking.json')}
+              autoPlay
+              ref={animationRefRunning}
+              style={styles.animation}
+              source={require('../assets/images/walking.json')}
             />
-        ):(
+          ) : (
             <LottieView
-            autoPlay
-                ref={animationRefSitting}
-                style={styles.animation}
-                source={require('../assets/images/Sitting.json')}
+              autoPlay
+              ref={animationRefSitting}
+              style={styles.animation}
+              source={require('../assets/images/Sitting.json')}
             />
-        )}
+          )}
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
     container: {

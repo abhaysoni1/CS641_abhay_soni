@@ -41,10 +41,13 @@ export default function Home() {
             <Ionicons name="footsteps" size={hp(3)} color="#900" />
             </View>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=> router.push({pathname:'/notification'})} >
             <View className="bg-neutral-200 rounded-full flex justify-center items-center border-[3px] border-neutral-300"
             style={{height :hp(5.5),width:hp(5.5)}}>
             <Ionicons name="notifications" size={hp(3)} color="#900" />
             </View>
+            </TouchableOpacity>
             </View>
         </View>
     </View>
