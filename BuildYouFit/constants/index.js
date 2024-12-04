@@ -1,4 +1,4 @@
-export const rapidApiKey = '06dd3d25dbmsh41aaedc6cbaf5c7p14b3bdjsnc534c618184c';
+export const rapidApiKey = 'f48a133cffmsh2cc92fe260866b6p1e309fjsn3e029e3663bf';
 
 export const sliderImages =[
     require('../assets/images/slide1.png'),
@@ -55,7 +55,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "cable",
-      "gifUrl": "https://v2.exercisedb.io/image/bJAwUfJajoMWMC",
+      "gifUrl": "https://gymvisual.com/img/p/4/7/3/8/4738.gif",
       "id": "0007",
       "instructions": [
         "Sit on the cable machine with your back straight and feet flat on the ground.",
@@ -74,7 +74,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/UyVkETRSEiu4c0",
+      "gifUrl": "https://gymvisual.com/img/p/1/3/1/4/2/13142.gif",
       "id": "3293",
       "instructions": [
         "Start by hanging from a pull-up bar with an overhand grip, slightly wider than shoulder-width apart.",
@@ -94,7 +94,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "leverage machine",
-      "gifUrl": "https://v2.exercisedb.io/image/jRcs6PbtRj8f8V",
+      "gifUrl": "https://gymvisual.com/img/p/4/7/4/6/4746.gif",
       "id": "0015",
       "instructions": [
         "Adjust the machine to your desired weight and height.",
@@ -115,7 +115,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "leverage machine",
-      "gifUrl": "https://v2.exercisedb.io/image/Gj9czAcyTNgn9v",
+      "gifUrl": "https://gymvisual.com/img/p/4/7/4/8/4748.gif",
       "id": "0017",
       "instructions": [
         "Adjust the machine to your desired weight and height settings.",
@@ -136,7 +136,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "leverage machine",
-      "gifUrl": "https://v2.exercisedb.io/image/V5K2K7rJ6AVAvR",
+      "gifUrl": "",
       "id": "1431",
       "instructions": [
         "Adjust the machine to your desired assistance level.",
@@ -147,7 +147,7 @@ export const DemoExercises = [
         "Pause for a moment at the top, then slowly lower your body back down to the starting position.",
         "Repeat for the desired number of repetitions."
       ],
-      "name": "assisted standing chin-up",
+      "name": "https://gymvisual.com/img/p/6/3/3/5/6335.gif",
       "secondaryMuscles": [
         "biceps",
         "forearms"
@@ -157,7 +157,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "leverage machine",
-      "gifUrl": "https://v2.exercisedb.io/image/CSMFziajhyTxCp",
+      "gifUrl": "https://gymvisual.com/img/p/6/3/3/6/6336.gif",
       "id": "1432",
       "instructions": [
         "Adjust the machine to your desired weight and height settings.",
@@ -178,7 +178,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "stability ball",
-      "gifUrl": "https://v2.exercisedb.io/image/MCB0AdQhd6JZXf",
+      "gifUrl": "https://gymvisual.com/img/p/1/2/6/1/5/12615.gif",
       "id": "1314",
       "instructions": [
         "Place the stability ball on the ground and lie face down on top of it, with your hips resting on the ball and your feet against a wall or other stable surface.",
@@ -197,7 +197,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/UNq-MSlDzgm7d2",
+      "gifUrl": "https://gymvisual.com/img/p/1/3/1/4/6/13146.gif",
       "id": "3297",
       "instructions": [
         "Start by hanging from a pull-up bar with an overhand grip, hands slightly wider than shoulder-width apart.",
@@ -218,7 +218,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/IfjHeNP-0Vksyu",
+      "gifUrl": "https://gymvisual.com/img/p/6/6/6/6/6666.gif",
       "id": "1405",
       "instructions": [
         "Stand tall with your feet shoulder-width apart.",
@@ -239,7 +239,7 @@ export const DemoExercises = [
     {
       "bodyPart": "back",
       "equipment": "band",
-      "gifUrl": "https://v2.exercisedb.io/image/c3ktM5wNdlGgrT",
+      "gifUrl": "https://gymvisual.com/img/p/5/6/8/3/5683.gif",
       "id": "0970",
       "instructions": [
         "Attach the band to a pull-up bar or sturdy  ba band and grip the bar with your palms facing away from you, hands slightly wider than shoulder-width apart.",
