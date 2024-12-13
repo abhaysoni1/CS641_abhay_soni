@@ -12,27 +12,29 @@ export default function Home() {
   return (
     <SafeAreaView className= "flex-1 bg-white flex space-y-5" edges={['top']} >
     <StatusBar style="dark"/>
-
+    <View>
+        <ImageSlider/>
+    </View>
     <View className="flex-row justify-between items-center mx-5" style={{marginBottom: wp(2)}}>
         <View className="space-y-2">
         <Text
             style= {{fontSize: hp(4.5)}}
-            className="font-bold tracking-wider text-neutral-700"
+            className="font-bold tracking-wider text-rose-700"
         >
-            Ready To
+            Geared Up
         </Text>
         <Text
             style= {{fontSize: hp(4.5)}}
-            className="font-bold tracking-wider text-rose-500"
+            className="font-bold tracking-wider text-rose-700"
         >
-            Workout
+            For Fitness
         </Text>
         </View>
 
         <View className="flex justify-center items-center space-y-2">
-            <Image source ={require('../assets/images/avatar.png')}
+            {/* <Image source ={require('../assets/images/avatar.png')}
             style={{height :hp(6),width:hp(6)}}
-            className='rounded-full'/>
+            className='rounded-full'/> */}
             
             <View className='flex-row' >
             <TouchableOpacity onPress={()=> router.push({pathname:'/steps'})} >
@@ -52,9 +54,7 @@ export default function Home() {
         </View>
     </View>
 
-    <View>
-        <ImageSlider/>
-    </View>
+    
     <View className="flex-1">
         <BodyParts/>
     </View>

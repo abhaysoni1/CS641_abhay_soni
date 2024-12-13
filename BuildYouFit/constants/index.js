@@ -11,11 +11,11 @@ export const sliderImages =[
 export const bodyParts =[
     {
         name:'back',
-        image: require('../assets/images/back.png'),
+        image: require('../assets/images/Back.jpeg'),
     },
     {
         name:'cardio',
-        image: require('../assets/images/cardio.png'),
+        image: require('../assets/images/cardio.jpeg'),
     },
     {
         name:'lower arms',
@@ -23,11 +23,11 @@ export const bodyParts =[
     },
     {
         name:'chest',
-        image: require('../assets/images/chest.png'),
+        image: require('../assets/images/chest1.png'),
     },
     {
         name:'lower legs',
-        image: require('../assets/images/lowerLegs.png'),
+        image: require('../assets/images/lowerLegs.jpeg'),
     },
     {
         name:'neck',

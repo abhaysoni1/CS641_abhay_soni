@@ -46,7 +46,7 @@ Notifications.setNotificationHandler({
             onPress= {()=> router.push('home')}
             >
                 <Text style={{fontSize: hp(3)}} className="text-white font-bold tracking-wideness">
-                    Get Started
+                    Start your Workout
                 </Text>
             </TouchableOpacity>
         </Animated.View>
